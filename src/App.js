@@ -28,8 +28,8 @@ class App extends Component {
   obtVenue = () => {
     const apiLoc = "https://api.foursquare.com/v2/venues/explore?"
     const params = {
-      client_id: "3BFFDXDSP4324WBGN02YMWZADLY1C0FIMIMBRMBI240DTTUO",
-      client_secret: "1A0PH415M44JSPIXVPNDC3T3XE40MDVYAU3FR5IFYBYF505C",
+      client_id: "",
+      client_secret: "",
       query: "food",
       near: "Palm Springs",
       v: "20183012"
