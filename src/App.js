@@ -17,7 +17,7 @@ class App extends Component {
  * Get map api key
  */
   getMap = () => {
-    getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyD-6gr4LhtobKgtRgExCn6xm2tE2FmLLX4&callback=initMap")
+    getScript("https://maps.googleapis.com/maps/api/js?key=&callback=initMap")
     window.initMap = this.initMap
   }
 
