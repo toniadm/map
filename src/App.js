@@ -4,7 +4,6 @@ import logo from './logo.svg';
 import './App.css';
 import Gmap from './components/Gmap';
 import Search from './components/Search';
-import Venue from './components/Venue';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -15,9 +14,11 @@ class App extends React.Component {
     return (
       <div className="app">
         <Search />
-        <Gmap />
+        <div>
+        	<Gmap />
+        </div>
       </div>
-      )
+      );
     }
 
 }

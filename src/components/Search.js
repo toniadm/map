@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Gmap from './Gmap';
 
 
 class Search extends Component {
@@ -7,11 +8,19 @@ class Search extends Component {
 
     return (
       <div className="sidebar">
-        <div id="search">
-          <input className="searchbx" type="text" placeholder="Search" />
-        </div>
+        <section className="search">
+          <form>
+            <input className="searchbx" 
+              type="text"
+              placeholder="Search" 
+            />
+          </form>
+            <ul className="venue-list">
+              <li>{this.props.name}</li>
+            </ul>
+        </section>
       </div>
-    )
+    );
   }
 }
 

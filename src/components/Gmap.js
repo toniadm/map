@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import Search from './Search';
 import axios from 'axios';
-import Venue from './Venue';
+
 
 class Gmap extends Component {
 
@@ -87,7 +88,7 @@ class Gmap extends Component {
     render() {
 
       let venuesList = this.state.venues.map((item,i) =>
-        <Venue key={i} name={item.venue.name}/> //Create a new "name attribute"
+        <Search key={i} name={item.venue.name} />
       );
 
       return (
@@ -95,10 +96,10 @@ class Gmap extends Component {
           <main>
             <div id="gmap"></div>
           </main>
-            <ul>{venuesList}</ul>
+            {/*<ul>{venuesList}</ul>*/}
 
         </div>
-      )
+      );
     }
 }
 
