@@ -35,6 +35,24 @@
   height: 100vh;
 }
 
+/*
+#search {
+  height: 100vh;
+  width: 300px;
+  float: left;
+}*/
+
+
+.searchbx {
+  max-width: 100%;
+  width: 350px;
+  line-height: normal;
+  float: left;
+  padding: 0 10px;
+  font-size: 1.5em;
+}
+
+
 html, body {
   height: 100%;
   margin: 0;
