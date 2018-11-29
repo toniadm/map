@@ -2,17 +2,20 @@ import React from 'react';
 import * as ReactDOM from "react-dom";
 import logo from './logo.svg';
 import './App.css';
-import Map from './components/Map';
+import Gmap from './components/Gmap';
 import Search from './components/Search';
+import Venue from './components/Venue';
 import axios from 'axios';
 
 class App extends React.Component {
 
+
   render() {
+
     return (
       <div className="app">
         <Search />
-        <Map />
+        <Gmap />
       </div>
       )
     }

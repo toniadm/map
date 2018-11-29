@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Venue from './Venue';
 
-class Map extends Component {
+class Gmap extends Component {
 
   state = {
     venues: []
@@ -48,7 +49,7 @@ class Map extends Component {
  * using Google Maps info window and marker documentation
  */
   initMap = () => {
-    const map = new window.google.maps.Map(document.getElementById('map'), {
+    const map = new window.google.maps.Map(document.getElementById('gmap'), {
       center: {lat: 33.8302961, lng: -116.54529209999998},
       zoom: 14
     });
@@ -85,11 +86,18 @@ class Map extends Component {
 
     render() {
 
-      return (
+      let venuesList = this.state.venues.map((item,i) =>
+        <Venue key={i} name={item.venue.name}/> //Create a new "name attribute"
+      );
 
-        <main>
-          <div id="map"></div>
-        </main>
+      return (
+        <div>
+          <main>
+            <div id="gmap"></div>
+          </main>
+            <ul>{venuesList}</ul>
+
+        </div>
       )
     }
 }
@@ -107,4 +115,4 @@ function getScript(url) {
   index.parentNode.insertBefore(scripTag, index)
 }
 
-export default Map;
+export default Gmap;
