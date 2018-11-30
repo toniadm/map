@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Gmap from './Gmap';
 
 
 class Search extends Component {
@@ -6,27 +7,18 @@ class Search extends Component {
 constructor(props) {
     super(props);
     this.state = {value: ''};
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.inputChange.bind(this);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    this.props.onSubmit(this.state.value);
-  }
 
-  handleChange(event) {
+  inputChange(event) {
     this.setState({value: event.target.value});
   }
 
   render() {
     return (
-      <form onChange={this.handleSubmit}>
-        <input className="searchBx" onChange={this.handleChange} value={this.state.value} placeholder="Search Venues" />
-        <input type="submit" value="Submit" />
-      </form>
+      <input className="searchbx" onChange={this.inputChange} value={this.state.value} placeholder="Search Venues" />
     );
   }
 }
-
 export default Search;

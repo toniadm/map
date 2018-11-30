@@ -42,6 +42,11 @@
   float: left;
 }*/
 
+ul {
+  list-style-type: none;
+  position: absolute;
+  top: 20px;
+}
 
 .searchbx {
   max-width: 100%;

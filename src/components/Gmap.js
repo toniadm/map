@@ -104,9 +104,7 @@ class Gmap extends Component {
             {venueList}
           </ul>
 
-          <main>
-            <div id="gmap"></div>
-          </main>
+          <div id="gmap" role="application"></div>
         </div>
       );
     }
