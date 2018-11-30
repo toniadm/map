@@ -13,7 +13,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        <Search />
+        {/*<Search />*/}
         <div>
         	<Gmap />
         </div>

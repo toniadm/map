@@ -1,17 +1,11 @@
 import React, {Component} from 'react';
-import Search from './Search';
 import axios from 'axios';
-
+import Venue from './Venue';
 
 class Gmap extends Component {
 
   state = {
-    venues: [],
-    query: ''
-  }
-
-  handleSubmit(query) {
-    this.obtVenue(query);
+    venues: []
   }
 
   componentDidMount() {
@@ -30,7 +24,7 @@ class Gmap extends Component {
  * Get venues from Foursquare using Axios
  * Parameters obtained from Foursquare configuration docs
  */
-  obtVenue = (query) => {
+  obtVenue = () => {
     const apiLoc = "https://api.foursquare.com/v2/venues/explore?"
     const params = {
       client_id: "3BFFDXDSP4324WBGN02YMWZADLY1C0FIMIMBRMBI240DTTUO",
@@ -90,25 +84,20 @@ class Gmap extends Component {
 
     }
 
-
     render() {
 
-      let venueList = this.state.venues.map((item,i) =>
-        <li key={i}>{item.venue.name}</li>
+      let venuesList = this.state.venues.map((item,i) =>
+        <Venue key={i} name={item.venue.name}/> //Create a new "name attribute"
       );
 
       return (
         <div>
-          <Search onSubmit={(value)=>this.handleSubmit(value)}/>
-          <ul >
-            {venueList}
-          </ul>
-
           <main>
             <div id="gmap"></div>
           </main>
+            <ul>{venuesList}</ul>
         </div>
-      );
+      )
     }
 }
 
