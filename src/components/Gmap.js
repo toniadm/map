@@ -7,11 +7,12 @@ class Gmap extends Component {
 
   state = {
     venues: [],
-    query: ''
+    query: '',
+    lastMarker: ''
   }
 
-  handleSubmit(query) {
-    this.obtVenue(query);
+  handleSubmit(venues) {
+    this.obtVenue(venues);
   }
 
   componentDidMount() {
@@ -50,6 +51,7 @@ class Gmap extends Component {
       })
   }
 
+
 /*
  * Initialize Google map
  * using Google Maps info window and marker documentation
@@ -63,12 +65,15 @@ class Gmap extends Component {
       /*
        * Info window creation
        */
-      let infowindow = new window.google.maps.InfoWindow()
+
+      let infoWindow = new window.google.maps.InfoWindow()
       let getMyMap = this.state.venues
       getMyMap.map(pspVenue => {
 
         let venName = pspVenue.venue.name
-        let contentString = `${venName}`
+        let venLoc = pspVenue.venue.location.formattedAddress[0]
+        let venCity = pspVenue.venue.location.formattedAddress[1]
+        let contentString = `${venName} <br> ${venLoc} <br> ${venCity}`
 
         /*
          * Marker creation
@@ -76,15 +81,17 @@ class Gmap extends Component {
         let marker = new window.google.maps.Marker({
           position: {lat: pspVenue.venue.location.lat, lng: pspVenue.venue.location.lng},
           map: map,
-          title: venName
+          title: venName,
+          animation: window.google.maps.Animation.DROP
         })
 
         /*
          * Show info window by clicking a marker
          */
+
         marker.addListener('click', function() {
-          infowindow.setContent(contentString)
-          infowindow.open(map, marker);
+          infoWindow.setContent(contentString)
+          infoWindow.open(map, marker);
         })
       })
 
@@ -99,7 +106,7 @@ class Gmap extends Component {
 
       return (
         <div>
-          <Search onSubmit={(value)=>this.handleSubmit(value)}/>
+          <Search onChange={(value)=>this.handleSubmit(value)}/>
           <ul >
             {venueList}
           </ul>
