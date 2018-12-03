@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Gmap from './Gmap';
+
 
 
 class Search extends Component {
