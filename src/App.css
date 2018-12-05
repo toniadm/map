@@ -63,3 +63,8 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+.listOfVenues {
+  margin-top: 15px;
+  padding: 15px;
+}

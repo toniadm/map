@@ -1,0 +1,26 @@
+import React, {Component} from 'react';
+import Search from './Search';
+import axios from 'axios';
+
+
+class Gmap extends Component {
+
+  state = {
+    venues: [],
+    query: '',
+    lastMarker: ''
+  }
+
+
+    render() {
+
+      return (
+        <div>
+          <div id="gmap" role="application"></div>
+        </div>
+      );
+    }
+}
+
+
+export default Gmap;
