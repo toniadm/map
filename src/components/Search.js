@@ -7,6 +7,14 @@ class Search extends Component {
     this.state = {value: ''};
   }
 
+<<<<<<< Updated upstream
+=======
+handleChange(event) {
+    event.preventDefault();
+    this.props.onChange(this.state.value);
+    this.setState({value: event.target.value});
+  }
+>>>>>>> Stashed changes
 
   render() {
     return (
