@@ -10,6 +10,9 @@ import Search from './components/Search';
 // eslint-disable-next-line
 import VenueList from './components/VenueList';
 import axios from 'axios';
+import escapeRegExp from 'escape-string-regexp';
+
+
 
 
 class App extends React.Component {
@@ -19,16 +22,17 @@ class App extends React.Component {
     super();
     this.state = {
       venues: [],
+      markers: [],
+      cantSeeMarkers: [],
+      allVenues: [],
+      query: ''
     };
 
   }
 
-  handleChange(query) {
-    this.obtVenue(query);
-  }
 
   componentDidMount() {
-    this.obtVenue('food');
+    this.obtVenue('resorts');
   }
 
 
@@ -50,14 +54,16 @@ class App extends React.Component {
       client_id: "3BFFDXDSP4324WBGN02YMWZADLY1C0FIMIMBRMBI240DTTUO",
       client_secret: "1A0PH415M44JSPIXVPNDC3T3XE40MDVYAU3FR5IFYBYF505C",
       query: query,
-      near: "Palm Springs",
+      near: "Palm Desert",
+      ll: "33.737627,-116.3751197",
       limit:10,
       v: "20183012"
     }
     axios.get(apiLoc + new URLSearchParams(params))
       .then(response => {
         this.setState({
-          venues: response.data.response.groups[0].items
+          venues: response.data.response.groups[0].items,
+          allVenues: response.data.response.groups[0].items
         }, this.getMap())
       })
       .catch(err => {
@@ -70,10 +76,10 @@ class App extends React.Component {
  * Initialize Google map
  * using Google Maps info window and marker documentation
  */
-  initMap = () => {
+  initMap = (query) => {
     const map = new window.google.maps.Map(document.getElementById('gmap'), {
-      center: {lat: 33.8302961, lng: -116.54529209999998},
-      zoom: 14
+      center: {lat: 33.737627, lng: -116.3751197},
+      zoom: 10
     });
 
       /*
@@ -98,33 +104,79 @@ class App extends React.Component {
           position: {lat: pspVenue.venue.location.lat, lng: pspVenue.venue.location.lng},
           map: map,
           title: venName,
-          animation: window.google.maps.Animation.DROP
         })
+
+        this.state.markers.push(marker)
 
 
         /*
          * Show info window by clicking a marker
+         * Animate marker
+         * Google Maps Marker Animation document
          */
 
         marker.addListener('click', function() {
           infoWindow.setContent(contentString)
+          marker.setAnimation(window.google.maps.Animation.BOUNCE)
+          setTimeout(function(){ marker.setAnimation(null); }, 4000)
           infoWindow.open(map, marker);
         })
       })
 
     }
 
+  clearQuery = () => {
+    this.setState({ query: '' })
+  }
+
+
+  updateQuery = (query) => {
+    this.setState({ query })
+    this.state.markers.map(marker => marker.setVisible(true))
+    let filterVenues
+    let cantSeeMarkers
+
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), "i")
+      filterVenues = this.state.venues.filter(pspVenue =>
+        match.test(pspVenue.venue.name)
+      )
+      this.setState({ venues: filterVenues })
+      cantSeeMarkers = this.state.markers.filter(marker =>
+        filterVenues.every(pspVenue => pspVenue.venue.name !== marker.title)
+      )
+
+      /*
+       * Hiding the markers for venues not included in the filtered venues
+      */
+      cantSeeMarkers.forEach(marker => marker.setVisible(false))
+
+      this.setState({ cantSeeMarkers })
+    } else {
+      this.setState({ venues: this.state.allVenues })
+      this.state.markers.forEach(marker => marker.setVisible(true))
+    }
+  }
+
+
   render() {
 
     let venueName = this.state.venues.map((item,i) =>
-      <VenueList key={i} name={item.venue.name} />
+      <VenueList handleClick={this.selectStadium} key={i} name={item.venue.name} />
     );
     console.log(venueName)
 
     return (
       <div className="app">
 
-          <Search onChange={(value)=>this.handleChange(value)}/>
+          <Search
+            venues={ this.state.allVenues }
+            markers={ this.state.markers }
+            searchedVenues={ this.searchedVenues }
+            query={this.state.query}
+            clearQuery={this.clearQuery}
+            updateQuery={b => this.updateQuery(b)}
+          />
           <ul>
             {venueName}
           </ul>
