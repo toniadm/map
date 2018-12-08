@@ -104,10 +104,6 @@ class App extends React.Component {
           position: {lat: pspVenue.venue.location.lat, lng: pspVenue.venue.location.lng},
           map: map,
           title: venName,
-<<<<<<< Updated upstream
-=======
-          
->>>>>>> Stashed changes
         })
 
         this.state.markers.push(marker)
@@ -184,6 +180,7 @@ class App extends React.Component {
           <ul>
             {venueName}
           </ul>
+	      
         <div id="gmap" role="application"></div>
       </div>
       );

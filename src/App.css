@@ -46,6 +46,12 @@ ul {
   list-style-type: none;
   position: absolute;
   top: 20px;
+  left: -25px;
+}
+
+li {
+  padding: 5px 0 5px;
+  font-size: 16px;
 }
 
 .searchbx {
