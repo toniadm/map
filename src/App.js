@@ -176,7 +176,13 @@ class App extends React.Component {
             venues={this.state.venues}
             markers={this.state.markers}
           />
+
         </div>
+
+          <ul>
+            {venueName}
+          </ul>
+
         <div id="gmap" role="application"></div>
       </div>
       );
