@@ -57,13 +57,6 @@ li {
   background: #136497;
   border-bottom: 1px solid #042D47;
   width: auto;
-  top: 20px;
-  left: -25px;
-}
-
-li {
-  padding: 5px 0 5px;
-  font-size: 16px;
 }
 
 .searchbx {

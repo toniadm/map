@@ -19,18 +19,6 @@ class Search extends Component {
           value={this.props.query}
           onChange={event => this.props.searchQuery(event.target.value)}
           />
-
-      <div className="searchbar">
-        <input
-        className="searchbx"
-        type="text"
-        autoFocus
-        placeholder="Search for venues"
-        aria-label="Search"
-        value={this.props.query}
-        onChange={event => this.props.updateQuery(event.target.value)}
-        />
-      </div>
     );
   }
 }
