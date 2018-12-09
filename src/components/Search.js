@@ -17,7 +17,7 @@ class Search extends Component {
           placeholder="Search for venues"
           aria-label="Search"
           value={this.props.query}
-          onChange={event => this.props.updateQuery(event.target.value)}
+          onChange={event => this.props.searchQuery(event.target.value)}
           />
     );
   }

@@ -35,22 +35,33 @@
   height: 100vh;
 }
 
-/*
-#search {
-  height: 100vh;
-  width: 300px;
-  float: left;
-}*/
+
+.container {
+  background-color: #042D47;
+}
 
 ul {
   list-style-type: none;
   position: absolute;
-  top: 20px;
+  top: 25px;
+  left: -35px;
+  width: 100%;
+}
+
+li {
+  padding: 16px 20px;
+  font-size: 18px;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  background: #136497;
+  border-bottom: 1px solid #042D47;
+  width: auto;
 }
 
 .searchbx {
   max-width: 100%;
-  width: 350px;
+  width: 360px;
   line-height: normal;
   float: left;
   padding: 0 10px;
@@ -67,4 +78,11 @@ html, body {
 .listOfVenues {
   margin-top: 15px;
   padding: 15px;
+}
+
+@media (max-width: 600px) {
+
+  li {
+    font-size: 1.5vw;
+  }
 }

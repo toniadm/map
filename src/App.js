@@ -17,22 +17,22 @@ import escapeRegExp from 'escape-string-regexp';
 
 class App extends React.Component {
 
-  constructor() {
+  constructor(props) {
 
-    super();
+    super(props);
     this.state = {
       venues: [],
       markers: [],
       cantSeeMarkers: [],
       allVenues: [],
-      query: ''
+      query: '',
     };
 
   }
 
 
   componentDidMount() {
-    this.obtVenue('resorts');
+    this.obtVenue();
   }
 
 
@@ -53,7 +53,7 @@ class App extends React.Component {
     const params = {
       client_id: "3BFFDXDSP4324WBGN02YMWZADLY1C0FIMIMBRMBI240DTTUO",
       client_secret: "1A0PH415M44JSPIXVPNDC3T3XE40MDVYAU3FR5IFYBYF505C",
-      query: query,
+      query: 'food',
       near: "Palm Desert",
       ll: "33.737627,-116.3751197",
       limit:10,
@@ -85,13 +85,14 @@ class App extends React.Component {
       /*
        * Info window creation
        */
-
       let infoWindow = new window.google.maps.InfoWindow()
       let getMyMap = this.state.venues
 
       // eslint-disable-next-line
       getMyMap.map(pspVenue => {
 
+        // eslint-disable-next-line
+        let venId = pspVenue.venue.id
         let venName = pspVenue.venue.name
         let venLoc = pspVenue.venue.location.formattedAddress[0]
         let venCity = pspVenue.venue.location.formattedAddress[1]
@@ -104,6 +105,8 @@ class App extends React.Component {
           position: {lat: pspVenue.venue.location.lat, lng: pspVenue.venue.location.lng},
           map: map,
           title: venName,
+          id: venId,
+          icon: {url: "https://unpkg.com/leaflet@1.3.1/dist/images/marker-icon.png",scaledSize: new window.google.maps.Size(25, 41)}
         })
 
         this.state.markers.push(marker)
@@ -117,20 +120,16 @@ class App extends React.Component {
 
         marker.addListener('click', function() {
           infoWindow.setContent(contentString)
-          marker.setAnimation(window.google.maps.Animation.BOUNCE)
-          setTimeout(function(){ marker.setAnimation(null); }, 4000)
+          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+          setTimeout(function(){ marker.setAnimation(null); }, 1000)
           infoWindow.open(map, marker);
         })
       })
 
     }
 
-  clearQuery = () => {
-    this.setState({ query: '' })
-  }
 
-
-  updateQuery = (query) => {
+  searchQuery = (query) => {
     this.setState({ query })
     this.state.markers.map(marker => marker.setVisible(true))
     let filterVenues
@@ -161,25 +160,23 @@ class App extends React.Component {
 
   render() {
 
-    let venueName = this.state.venues.map((item,i) =>
-      <VenueList handleClick={this.selectStadium} key={i} name={item.venue.name} />
-    );
-    console.log(venueName)
-
     return (
-      <div className="app">
+      <div className="container">
 
+        <div className="left-side">
           <Search
-            venues={ this.state.allVenues }
-            markers={ this.state.markers }
-            searchedVenues={ this.searchedVenues }
+            venues={this.state.allVenues}
+            markers={this.state.markers}
+            searchedVenues={this.searchedVenues}
             query={this.state.query}
-            clearQuery={this.clearQuery}
-            updateQuery={b => this.updateQuery(b)}
+            searchQuery={work => this.searchQuery(work)}
           />
-          <ul>
-            {venueName}
-          </ul>
+
+          <VenueList
+            venues={this.state.venues}
+            markers={this.state.markers}
+          />
+        </div>
         <div id="gmap" role="application"></div>
       </div>
       );
