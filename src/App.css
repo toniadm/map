@@ -43,13 +43,13 @@
 ul {
   list-style-type: none;
   position: fixed;
-  top: 15px;
+  top: 25px;
   left: -38px;
   width: 25%;
 }
 
 li {
-  padding: 15px 15px;
+  padding: 12px 15px;
   font-size: 18px;
   color: white;
   outline: none;
