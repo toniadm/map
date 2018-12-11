@@ -33,23 +33,33 @@
 
 #gmap {
   height: 100vh;
+  position: relative;
+  overflow: hidden;
+  margin-left: 0;
+  z-index: -1;
+  top: -80px;
 }
 
 
 .container {
-  background-color: #042D47;
+  /*background-color: #042D47;*/
+}
+
+.left-side {
+  display: flex;
 }
 
 ul {
   list-style-type: none;
-  position: fixed;
-  top: 15px;
+  position: absolute;
+  top: 11px;
   left: -38px;
   width: 25%;
+  z-index: 1;
 }
 
 li {
-  padding: 15px 15px;
+  padding: 12px 15px;
   font-size: 18px;
   color: white;
   outline: none;
