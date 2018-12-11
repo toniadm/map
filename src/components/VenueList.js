@@ -15,7 +15,6 @@ class VenueList extends Component {
   render() {
 
     return (
-      <div className="ven-lst">
        <ul className="">
           {this.props.venues.map(venLst => (
             <li
@@ -33,7 +32,6 @@ class VenueList extends Component {
             </li>
             ))}
         </ul>
-      </div>
     );
   }
 }

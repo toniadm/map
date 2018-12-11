@@ -48,6 +48,7 @@ class App extends React.Component {
  * Get venues from Foursquare using Axios
  * Parameters obtained from Foursquare configuration docs
  */
+
   obtVenue = (query) => {
     const apiLoc = "https://api.foursquare.com/v2/venues/explore?"
     const params = {
@@ -76,6 +77,7 @@ class App extends React.Component {
  * Initialize Google map
  * using Google Maps info window and marker documentation
  */
+
   initMap = (query) => {
     const map = new window.google.maps.Map(document.getElementById('gmap'), {
       center: {lat: 33.737627, lng: -116.3751197},
@@ -101,6 +103,7 @@ class App extends React.Component {
         /*
          * Create marker with custom marker
          */
+
         let marker = new window.google.maps.Marker({
           position: {lat: pspVenue.venue.location.lat, lng: pspVenue.venue.location.lng},
           map: map,
