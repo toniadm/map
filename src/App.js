@@ -23,7 +23,7 @@ class App extends React.Component {
     this.state = {
       venues: [],
       markers: [],
-      cantSeeMarkers: [],
+      hideMarkers: [],
       allVenues: [],
       query: '',
     };
@@ -53,10 +53,10 @@ class App extends React.Component {
     const params = {
       client_id: "3BFFDXDSP4324WBGN02YMWZADLY1C0FIMIMBRMBI240DTTUO",
       client_secret: "1A0PH415M44JSPIXVPNDC3T3XE40MDVYAU3FR5IFYBYF505C",
-      query: 'food',
+      query: 'movies',
       near: "Palm Desert",
       ll: "33.737627,-116.3751197",
-      limit:10,
+      limit: 5,
       v: "20183012"
     }
     axios.get(apiLoc + new URLSearchParams(params))
@@ -79,7 +79,7 @@ class App extends React.Component {
   initMap = (query) => {
     const map = new window.google.maps.Map(document.getElementById('gmap'), {
       center: {lat: 33.737627, lng: -116.3751197},
-      zoom: 10
+      zoom: 15
     });
 
       /*
@@ -99,7 +99,7 @@ class App extends React.Component {
         let contentString = `${venName} <br> ${venLoc} <br> ${venCity}`
 
         /*
-         * Marker creation
+         * Create marker with custom marker
          */
         let marker = new window.google.maps.Marker({
           position: {lat: pspVenue.venue.location.lat, lng: pspVenue.venue.location.lng},
@@ -113,27 +113,31 @@ class App extends React.Component {
 
 
         /*
-         * Show info window by clicking a marker
-         * Animate marker
+         * Clicking marker displays info window
          * Google Maps Marker Animation document
+         * 
          */
 
         marker.addListener('click', function() {
           infoWindow.setContent(contentString)
           marker.setAnimation(window.google.maps.Animation.BOUNCE);
-          setTimeout(function(){ marker.setAnimation(null); }, 1000)
+          setTimeout(function(){ marker.setAnimation(null); }, 750)
           infoWindow.open(map, marker);
         })
       })
 
     }
 
+    /*
+     *  Query to search for venues and select associated marker
+     *
+     */
 
   searchQuery = (query) => {
     this.setState({ query })
     this.state.markers.map(marker => marker.setVisible(true))
     let filterVenues
-    let cantSeeMarkers
+    let hideMarkers
 
     if (query) {
       const match = new RegExp(escapeRegExp(query), "i")
@@ -141,16 +145,13 @@ class App extends React.Component {
         match.test(pspVenue.venue.name)
       )
       this.setState({ venues: filterVenues })
-      cantSeeMarkers = this.state.markers.filter(marker =>
+      hideMarkers = this.state.markers.filter(marker =>
         filterVenues.every(pspVenue => pspVenue.venue.name !== marker.title)
       )
 
-      /*
-       * Hiding the markers for venues not included in the filtered venues
-      */
-      cantSeeMarkers.forEach(marker => marker.setVisible(false))
+      hideMarkers.forEach(marker => marker.setVisible(false))
 
-      this.setState({ cantSeeMarkers })
+      this.setState({ hideMarkers })
     } else {
       this.setState({ venues: this.state.allVenues })
       this.state.markers.forEach(marker => marker.setVisible(true))
@@ -177,7 +178,9 @@ class App extends React.Component {
             markers={this.state.markers}
           />
         </div>
+        <div>
         <div id="gmap" role="application"></div>
+        </div>
       </div>
       );
     }
