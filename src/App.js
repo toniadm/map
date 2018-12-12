@@ -24,7 +24,7 @@ class App extends React.Component {
       venues: [],
       markers: [],
       hideMarkers: [],
-      allVenues: [],
+      ourLocs: [],
       query: '',
     };
 
@@ -56,7 +56,7 @@ class App extends React.Component {
       client_secret: "1A0PH415M44JSPIXVPNDC3T3XE40MDVYAU3FR5IFYBYF505C",
       query: 'resorts',
       near: "Palm Desert",
-      ll: "33.737627,-116.3751197",
+      ll: "33.770180, -116.502970",
       limit: 5,
       v: "20183012"
     }
@@ -64,7 +64,7 @@ class App extends React.Component {
       .then(response => {
         this.setState({
           venues: response.data.response.groups[0].items,
-          allVenues: response.data.response.groups[0].items
+          ourLocs: response.data.response.groups[0].items
         }, this.getMap())
       })
       .catch(err => {
@@ -81,7 +81,7 @@ class App extends React.Component {
 
   initMap = (query) => {
     const map = new window.google.maps.Map(document.getElementById('gmap'), {
-      center: {lat: 36.737627, lng: -114.3751197},
+      center: {lat: 35.770180, lng: -116.502970},
       zoom: 10,
       mapTypeControl: false
     });
@@ -157,7 +157,7 @@ class App extends React.Component {
       hideMarkers.forEach(marker => marker.setVisible(false))
       this.setState({ hideMarkers })
     } else {
-      this.setState({ venues: this.state.allVenues })
+      this.setState({ venues: this.state.ourLocs })
       this.state.markers.forEach(marker => marker.setVisible(true))
     }
   }
@@ -170,7 +170,7 @@ class App extends React.Component {
 
         <div className="searchbar">
           <Search
-            venues={this.state.allVenues}
+            venues={this.state.ourLocs}
             markers={this.state.markers}
             query={this.state.query}
             searchQuery={work => this.searchQuery(work)}
