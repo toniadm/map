@@ -54,7 +54,7 @@ class App extends React.Component {
     const params = {
       client_id: "3BFFDXDSP4324WBGN02YMWZADLY1C0FIMIMBRMBI240DTTUO",
       client_secret: "1A0PH415M44JSPIXVPNDC3T3XE40MDVYAU3FR5IFYBYF505C",
-      query: 'movies',
+      query: 'resorts',
       near: "Palm Desert",
       ll: "33.737627,-116.3751197",
       limit: 5,
@@ -68,7 +68,8 @@ class App extends React.Component {
         }, this.getMap())
       })
       .catch(err => {
-        console.log("Alert: There is an error" + err)
+        alert("Unable to get data from Foursquare")
+        console.log("There is an error from Foursquare" + err)
       })
   }
 
@@ -80,7 +81,7 @@ class App extends React.Component {
 
   initMap = (query) => {
     const map = new window.google.maps.Map(document.getElementById('gmap'), {
-      center: {lat: 33.737627, lng: -116.3751197},
+      center: {lat: 36.737627, lng: -114.3751197},
       zoom: 10,
       mapTypeControl: false
     });
@@ -88,7 +89,7 @@ class App extends React.Component {
       /*
        * Info window creation
        */
-      let infoWindow = new window.google.maps.InfoWindow()
+      let infoWindow = new window.google.maps.InfoWindow({maxWidth: 150})
       let getMyMap = this.state.venues
 
       // eslint-disable-next-line
@@ -99,7 +100,8 @@ class App extends React.Component {
         let venName = pspVenue.venue.name
         let venLoc = pspVenue.venue.location.formattedAddress[0]
         let venCity = pspVenue.venue.location.formattedAddress[1]
-        let contentString = `${venName} <br> ${venLoc} <br> ${venCity}`
+        let dataAttr = "Data obtained from Foursquare"
+        let contentString = `${venName} <br> ${venLoc} <br> ${venCity} <br> <b>${dataAttr}`
 
         /*
          * Create marker with custom marker
@@ -112,7 +114,6 @@ class App extends React.Component {
           id: venId,
           icon: {url: "https://unpkg.com/leaflet@1.3.1/dist/images/marker-icon.png",scaledSize: new window.google.maps.Size(25, 41)}
         })
-
         this.state.markers.push(marker)
 
 
@@ -124,9 +125,9 @@ class App extends React.Component {
 
         marker.addListener('click', function() {
           infoWindow.setContent(contentString)
-          marker.setAnimation(window.google.maps.Animation.BOUNCE);
-          setTimeout(function(){ marker.setAnimation(null); }, 750)
-          infoWindow.open(map, marker);
+          marker.setAnimation(window.google.maps.Animation.BOUNCE)
+          setTimeout(function(){ marker.setAnimation(5); }, 750)
+          infoWindow.open(map, marker)
         })
       })
 
@@ -138,23 +139,22 @@ class App extends React.Component {
      */
 
   searchQuery = (query) => {
-    this.setState({ query })
+    this.setState({query})
     this.state.markers.map(marker => marker.setVisible(true))
-    let filterVenues
     let hideMarkers
+    let venuesSearch
 
     if (query) {
       const match = new RegExp(escapeRegExp(query), "i")
-      filterVenues = this.state.venues.filter(pspVenue =>
+      venuesSearch = this.state.venues.filter(pspVenue =>
         match.test(pspVenue.venue.name)
       )
-      this.setState({ venues: filterVenues })
+      this.setState({ venues: venuesSearch })
       hideMarkers = this.state.markers.filter(marker =>
-        filterVenues.every(pspVenue => pspVenue.venue.name !== marker.title)
+        venuesSearch.every(pspVenue => pspVenue.venue.name !== marker.title)
       )
 
       hideMarkers.forEach(marker => marker.setVisible(false))
-
       this.setState({ hideMarkers })
     } else {
       this.setState({ venues: this.state.allVenues })
@@ -166,13 +166,12 @@ class App extends React.Component {
   render() {
 
     return (
-      <div className="container">
+      <main>
 
-        <div className="sidebar">
+        <div className="searchbar">
           <Search
             venues={this.state.allVenues}
             markers={this.state.markers}
-            searchedVenues={this.searchedVenues}
             query={this.state.query}
             searchQuery={work => this.searchQuery(work)}
           />
@@ -182,9 +181,9 @@ class App extends React.Component {
             markers={this.state.markers}
           />
         </div>
- 
+
         <div id="gmap" role="application"></div>
-      </div>
+      </main>
       );
     }
 

@@ -4,7 +4,9 @@ class Search extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {
+      value: ''
+    };
   }
 
 
@@ -13,9 +15,9 @@ class Search extends Component {
           <input
           className="searchbx"
           type="text"
-          autoFocus
-          placeholder="Search for venues"
-          aria-label="Search"
+          tabIndex="1"
+          placeholder="Venue Search"
+          aria-label="Search text"
           value={this.props.query}
           onChange={event => this.props.searchQuery(event.target.value)}
           />

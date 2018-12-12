@@ -32,50 +32,44 @@
 }
 
 #gmap {
-  height: 700px;
+  height: 100vh;
   position: relative;
   overflow: hidden;
-  margin-left: 0;
-  top: -100px;
 }
 
 
-.container {
-  /*background-color: #042D47;*/
-}
-
-.sidebar {
-  display: flex;
-  margin-left: 10px;
+.searchbar {
+  border-radius: 5px;
+  position: absolute;
+  max-height: 50%;
+  overflow: auto;
+  left: 6%;
+  top: 2%;
+  z-index: 2;
+  font-size: 1.1em;
 }
 
 ul {
   list-style-type: none;
-  position: absolute;
-  padding: 85px 10px;
-  max-width: 20%;
-  z-index: 1;
+  padding: 0;
+  margin: 2px;
+  overflow: auto;
+  width: 320px
 }
 
 li {
-  padding: 12px 15px;
-  font-size: 18px;
+  font-size: 1em;
+  padding: 5px;
   color: white;
-  outline: none;
   cursor: pointer;
-  background: #136497;
-  border-bottom: 1px solid #042D47;
-  width: auto;
+  background-color: rgba(19, 99, 150, 0.73);
+  border-bottom: 3px solid #ffffff;
 }
 
 .searchbx {
-  max-width: 20%;
-  line-height: normal;
-  margin-left: 10px;
-  margin-top: 70px;
-  /*padding: 0 10px;*/
-  font-size: 2.2vw;
-  z-index: 1;
+  font-size: 1.1em;
+  width: 320px;
+  padding: 2px;
 }
 
 
@@ -90,12 +84,3 @@ html, body {
   padding: 15px;
 }
 
-@media (max-width: 600px) {
-  .searchbx {
-    height: 20px;
-  }
-
-  li {
-    font-size: 2.5vw;
-  }
-}

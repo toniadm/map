@@ -23,10 +23,10 @@ class VenueList extends Component {
               onClick={() => {
                 this.getMarker(venLst.venue.id);
               }}
-              aria-label={venLst.venue.name}
-              tabIndex="0"
+              tabIndex="1"
               id={venLst.venue.id}
               key={venLst.venue.id}
+              aria-label={venLst.venue.name}
             >
               {venLst.venue.name}
             </li>
