@@ -81,7 +81,8 @@ class App extends React.Component {
   initMap = (query) => {
     const map = new window.google.maps.Map(document.getElementById('gmap'), {
       center: {lat: 33.737627, lng: -116.3751197},
-      zoom: 10
+      zoom: 10,
+      mapTypeControl: false
     });
 
       /*
@@ -167,7 +168,7 @@ class App extends React.Component {
     return (
       <div className="container">
 
-        <div className="left-side">
+        <div className="sidebar">
           <Search
             venues={this.state.allVenues}
             markers={this.state.markers}
@@ -181,9 +182,8 @@ class App extends React.Component {
             markers={this.state.markers}
           />
         </div>
-        <div>
+ 
         <div id="gmap" role="application"></div>
-        </div>
       </div>
       );
     }
