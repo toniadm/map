@@ -83,7 +83,7 @@ class App extends React.Component {
   initMap = (query) => {
     const map = new window.google.maps.Map(document.getElementById('gmap'), {
       center: {lat: 33.782313, lng: -116.383663},
-      zoom: 15,
+      zoom: 13,
       mapTypeControl: false
     });
 
