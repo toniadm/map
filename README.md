@@ -8,11 +8,11 @@ The application is implemented using React, Google Maps API, and Foursquare API.
 
 Use the following steps to install the application:
 
-* Download this repository to your PC
-* Go to the project directory and install project dependencies with `npm install`
-* Start the development server with `npm start`
-* Open http://localhost:3000 in a browser
-* To create a prodcution build run `npm run build`
+1. Download this repository to your PC
+2. Go to the project directory and install project dependencies with `npm install`
+3. Start the development server with `npm start`
+4. Open http://localhost:3000 in a browser
+5. To create a prodcution build run `npm run build`
 
 ## Resources
 
