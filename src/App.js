@@ -36,18 +36,19 @@ class App extends React.Component {
   }
 
 
-/*
- * Get map api key from Google Maps
- */
+  /*
+  * Get map api key from Google Maps
+  */
   getMap = () => {
     getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBQ6zsiorJiComOV7nE9SBs3I43yLrpet4&callback=initMap")
     window.initMap = this.initMap
   }
 
-/*
- * Get venues from Foursquare using Axios
- * Parameters obtained from Foursquare configuration docs
- */
+  /*
+  * Get venues from Foursquare using Axios
+  * Parameters obtained from Foursquare configuration docs
+  * Axios used to fetch API data
+  */
 
   obtVenue = (query) => {
     const apiLoc = "https://api.foursquare.com/v2/venues/explore?"
@@ -56,7 +57,7 @@ class App extends React.Component {
       client_secret: "1A0PH415M44JSPIXVPNDC3T3XE40MDVYAU3FR5IFYBYF505C",
       query: 'resorts',
       near: "Palm Desert",
-      ll: "33.770180, -116.502970",
+      ll: "33.782313, -116.383663",
       limit: 5,
       v: "20183012"
     }
@@ -74,17 +75,18 @@ class App extends React.Component {
   }
 
 
-/*
- * Initialize Google map
- * using Google Maps info window and marker documentation
- */
+  /*
+  * Initialize Google map
+  * using Google Maps info window and marker documentation
+  */
 
   initMap = (query) => {
     const map = new window.google.maps.Map(document.getElementById('gmap'), {
-      center: {lat: 33.770180, lng: -116.502970},
-      zoom: 10,
+      center: {lat: 33.782313, lng: -116.383663},
+      zoom: 15,
       mapTypeControl: false
     });
+
 
       /*
        * Info window creation
@@ -103,38 +105,45 @@ class App extends React.Component {
         let dataAttr = "Data obtained from Foursquare"
         let contentString = `${venName} <br> ${venLoc} <br> ${venCity} <br> <b>${dataAttr}`
 
-        /*
-         * Create marker with custom marker
-         */
+  /*
+   * Create marker with custom marker
+   */
 
-        let marker = new window.google.maps.Marker({
-          position: {lat: pspVenue.venue.location.lat, lng: pspVenue.venue.location.lng},
-          map: map,
-          title: venName,
-          id: venId,
-          icon: {url: "https://unpkg.com/leaflet@1.3.1/dist/images/marker-icon.png",scaledSize: new window.google.maps.Size(25, 41)}
-        })
-        this.state.markers.push(marker)
+  let marker = new window.google.maps.Marker({
+    position: {lat: pspVenue.venue.location.lat, lng: pspVenue.venue.location.lng},
+    map: map,
+    title: venName,
+    id: venId,
+    icon: {url: "https://unpkg.com/leaflet@1.3.1/dist/images/marker-icon.png",scaledSize: new window.google.maps.Size(25, 41)}
+  })
+  this.state.markers.push(marker)
 
+  /*
+   *
+   * Close infoWindow by clicking anywhere on ma
+   */
 
-        /*
-         * Clicking marker or item in list displays info window
-         * and animates marker
-         * Google Maps Marker Animation document
-         *
-         */
+  window.google.maps.event.addListener(map,'click', function(){
+    infoWindow.close(map, marker)
+  })
 
-        marker.addListener('click', function() {
-          map.setCenter(this.getPosition())
-          map.panBy(0,-155)
-          infoWindow.setContent(contentString)
-          marker.setAnimation(window.google.maps.Animation.BOUNCE)
-          setTimeout(function(){ marker.setAnimation(5); }, 750)
-          infoWindow.open(map, marker)
-        })
+  /*
+   * Clicking marker or item in list displays info window
+   * and animates marker
+   * Google Maps Marker Animation document
+   *
+   */
+
+  marker.addListener('click', function() {
+    map.setCenter(this.getPosition())
+    map.panBy(0,-180)
+    infoWindow.setContent(contentString)
+    marker.setAnimation(window.google.maps.Animation.BOUNCE)
+    setTimeout(function(){ marker.setAnimation(5); }, 750)
+    infoWindow.open(map, marker)
       })
-
-    }
+    })
+  }
 
     /*
      *  Query to search for venues and select associated marker
@@ -176,7 +185,7 @@ class App extends React.Component {
             venues={this.state.ourLocs}
             markers={this.state.markers}
             query={this.state.query}
-            searchQuery={work => this.searchQuery(work)}
+            searchQuery={this.searchQuery}
           />
 
           <VenueList

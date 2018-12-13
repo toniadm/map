@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 
 class VenueList extends Component {
 
+  /*
+   * Get marker upon clicking
+   *
+   */
+
   getMarker = (venId) => {
     this.props.markers.forEach(marker => {
       if (marker.id === venId) {
