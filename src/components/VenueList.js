@@ -4,10 +4,10 @@ class VenueList extends Component {
 
   getMarker = (venId) => {
     this.props.markers.forEach(marker => {
-      this.setState({ query: '' })
       if (marker.id === venId) {
         window.google.maps.event.trigger(marker, 'click');
       }
+      this.setState({ query: '' })
     });
   };
 

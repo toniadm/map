@@ -15,7 +15,7 @@ class Search extends Component {
           <input
           className="searchbx"
           type="text"
-          tabIndex="1"
+          autoFocus
           placeholder="Venue Search"
           aria-label="Search text"
           value={this.props.query}

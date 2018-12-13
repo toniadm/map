@@ -37,7 +37,7 @@ class App extends React.Component {
 
 
 /*
- * Get map api key
+ * Get map api key from Google Maps
  */
   getMap = () => {
     getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBQ6zsiorJiComOV7nE9SBs3I43yLrpet4&callback=initMap")
@@ -118,12 +118,15 @@ class App extends React.Component {
 
 
         /*
-         * Clicking marker displays info window
+         * Clicking marker or item in list displays info window
+         * and animates marker
          * Google Maps Marker Animation document
          *
          */
 
         marker.addListener('click', function() {
+          map.setCenter(this.getPosition())
+          map.panBy(0,-155)
           infoWindow.setContent(contentString)
           marker.setAnimation(window.google.maps.Animation.BOUNCE)
           setTimeout(function(){ marker.setAnimation(5); }, 750)
@@ -168,7 +171,7 @@ class App extends React.Component {
     return (
       <main>
 
-        <div className="searchbar">
+        <aside className="searchbar">
           <Search
             venues={this.state.ourLocs}
             markers={this.state.markers}
@@ -180,7 +183,7 @@ class App extends React.Component {
             venues={this.state.venues}
             markers={this.state.markers}
           />
-        </div>
+        </aside>
 
         <div id="gmap" role="application"></div>
       </main>
