@@ -120,7 +120,7 @@ class App extends React.Component {
 
   /*
    *
-   * Close infoWindow by clicking anywhere on ma
+   * Close infoWindow by clicking anywhere on map
    */
 
   window.google.maps.event.addListener(map,'click', function(){
