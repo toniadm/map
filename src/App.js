@@ -58,7 +58,8 @@ class App extends React.Component {
       query: 'resorts',
       near: "Palm Desert",
       ll: "33.782313, -116.383663",
-      limit: 5,
+      limit: 20,
+      venuePhotos: 1,
       v: "20183012"
     }
     axios.get(apiLoc + new URLSearchParams(params))
@@ -83,7 +84,7 @@ class App extends React.Component {
   initMap = (query) => {
     const map = new window.google.maps.Map(document.getElementById('gmap'), {
       center: {lat: 33.782313, lng: -116.383663},
-      zoom: 13,
+      zoom: 16,
       mapTypeControl: false
     });
 
@@ -136,7 +137,7 @@ class App extends React.Component {
 
   marker.addListener('click', function() {
     map.setCenter(this.getPosition())
-    map.panBy(0,-180)
+    map.panBy(-100,-65)
     infoWindow.setContent(contentString)
     marker.setAnimation(window.google.maps.Animation.BOUNCE)
     setTimeout(function(){ marker.setAnimation(5); }, 750)

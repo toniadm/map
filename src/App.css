@@ -41,12 +41,17 @@
 .searchbar {
   border-radius: 5px;
   position: absolute;
-  max-height: 50%;
+  max-height: 100%;
   overflow: auto;
-  left: 6%;
-  top: 2%;
+  left: 0;
+  top: 0;
   z-index: 2;
   font-size: 1.1em;
+
+}
+
+aside::-webkit-scrollbar {
+    width: 1em;
 }
 
 ul {
@@ -62,9 +67,11 @@ li {
   padding: 5px;
   color: white;
   cursor: pointer;
-  background-color: rgba(19, 99, 150, 0.73);
+  background-color: rgba(19, 99, 150, 0.83);
+  border-right: 3px solid #ffffff;
   border-bottom: 3px solid #ffffff;
 }
+
 
 .searchbx {
   font-size: 1.1em;
@@ -82,5 +89,29 @@ html, body {
 .listOfVenues {
   margin-top: 15px;
   padding: 15px;
+}
+
+@media screen and (max-width: 348px) {
+  .searchbar {
+    max-height: 50%;
+    left: 6%;
+    border-right-style: none;
+  }
+
+  li {
+    border-right-style: none;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .searchbar {
+    max-height: 30%;
+    left: 6%;
+  }
+
+  li {
+    border-right-style: none;
+  }
 }
 
