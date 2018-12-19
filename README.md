@@ -1,10 +1,10 @@
-# Neighborhood Map
+# Neighborhood Map - Restaurants in Palm Desert
+
+![Image of Neighborhood Map](neighborhood_map.png)
 
 The Neighborhood Map is an application that allows searches for resorts in Palm Desert, CA.  Clicking on a specific resort will display an Info Window containing the Resort's location.
 
 The application is implemented using React, Google Maps API, and Foursquare API.
-
-![Image of Neighborhood Map](neighborhood_map.png)
 
 ## Installation
 
