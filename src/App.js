@@ -26,6 +26,7 @@ class App extends React.Component {
       hideMarkers: [],
       ourLocs: [],
       query: '',
+      photo: [],
     };
 
   }
@@ -55,12 +56,12 @@ class App extends React.Component {
     const params = {
       client_id: "3BFFDXDSP4324WBGN02YMWZADLY1C0FIMIMBRMBI240DTTUO",
       client_secret: "1A0PH415M44JSPIXVPNDC3T3XE40MDVYAU3FR5IFYBYF505C",
-      query: 'resorts',
+      query: 'restaurants',
       near: "Palm Desert",
       ll: "33.782313, -116.383663",
-      limit: 20,
-      venuePhotos: 1,
-      v: "20183012"
+      v: "20183012",
+      venuePhotos: 1
+
     }
     axios.get(apiLoc + new URLSearchParams(params))
       .then(response => {
@@ -74,7 +75,6 @@ class App extends React.Component {
         console.log("There is an error from Foursquare" + err)
       })
   }
-
 
   /*
   * Initialize Google map

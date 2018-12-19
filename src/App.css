@@ -59,7 +59,7 @@ ul {
   padding: 0;
   margin: 2px;
   overflow: auto;
-  width: 320px
+  width: 326px
 }
 
 li {
@@ -68,7 +68,7 @@ li {
   color: white;
   cursor: pointer;
   background-color: rgba(19, 99, 150, 0.83);
-  border-right: 3px solid #ffffff;
+  border-right: 5px solid palegoldenrod;
   border-bottom: 3px solid #ffffff;
 }
 
