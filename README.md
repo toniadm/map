@@ -4,6 +4,9 @@ The Neighborhood Map is an application that allows searches for resorts in Palm 
 
 The application is implemented using React, Google Maps API, and Foursquare API.
 
+![Image of Neighborhood Map]
+(https://raw.githubusercontent.com/toniadm/map/master/neighborhood_map.png)
+
 ## Installation
 
 Use the following steps to install the application:
